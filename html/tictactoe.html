@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../css/tictactoe.css">
+</head>
+
+<body>
+
+    <h1>Tic-Tac-Toe</h1>
+    <p id="next_player">Next player</p>
+    <img src="./images/cross.png" alt="cross image"  id="next"/>
+
+    <div id="div_board">
+        <!--
+        For some unknown reason it only works when width and height are specified as attributes.
+        It does not work when they are specified by the css, even if the canvas is displayed with the correct size
+        and clientX and clientY have the same values than the attributes... 
+    -->
+        <canvas id="game_board" width="600" height="500" style="border:1px solid #000000;" >
+            Your browser does not support the HTML canvas tag.
+        </canvas>
+    </div>
+    <div class="button" id="new_game_button" onclick="new_game()">NEW GAME</div>
+    <div class="button" id="computer_move" onclick="computer_move()">COMPUTER MOVE</div>
+    <div class="button" id="test_button" onclick="test()">Test</div>
+
+</body>
+<script src="../js/tictactoe_game.js"></script>
+<script src="../js/tictactoe.js"></script>
+
+</html>
