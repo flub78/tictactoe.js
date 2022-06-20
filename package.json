@@ -4,7 +4,7 @@
   "description": "A practice project for javascript",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,8 @@
     "jest": "^28.1.1",
     "jest-canvas-mock": "^2.4.0",
     "jest-environment-jsdom": "^28.1.1"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
   }
 }
