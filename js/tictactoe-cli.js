@@ -70,11 +70,10 @@ while (true) {
     var cmds = input.split(' ');
     var row = cmds[0];
     var col = cmds[1];
-    if ((['A', 'B', 'C'].includes(row)) && (['0', '1', '2'].includes(col))) {
-        console.log('playing ', row, col); 
- 
-        ttt.play(row.charCodeAt(0) - 65, parseInt(col));
+    if ((['A', 'B', 'C'].includes(row)) && (['0', '1', '2'].includes(col))) { 
+        var res = ttt.play(row.charCodeAt(0) - 65, parseInt(col));
         display_board();
+        if (res) console.log(res);
         continue;
     }
 

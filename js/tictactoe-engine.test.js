@@ -27,7 +27,7 @@ test('test instance', () => {
     expect(ti.board).not.toStrictEqual(empty_board);
 
     // but back after reset
-    ti.new_game();
+    expect(ti.new_game()).toBe(42);
     expect(ti.board).toStrictEqual(empty_board);
 });
 
@@ -67,5 +67,70 @@ test('test play invalid move', () => {
     // non empty moves are ignored
     ttt.play(1,0);          // O
     expect(ttt.board[1][0]).toBe('X');
+
+});
+
+test('winner', () => {
+    var ttt = test_instance();
+    expect(ttt).toBeDefined();
+
+    ttt.new_game();
+
+    ttt.board = [
+        [empty, empty, empty],
+        [empty, empty, empty],
+        [empty, empty, empty]
+    ];
+    expect(ttt.victory(0, 0, 'X')).toBe(false);
+
+    ttt.board = [
+        ['X', 'O', '.'],
+        ['X', '.', '.'],
+        ['X', '.', 'O']
+    ];
+    expect(ttt.victory(0, 0, 'X')).toBe(true);
+    expect(ttt.victory(0, 1, 'O')).toBe(false);
+    
+    ttt.board = [
+        ['X', 'O', '.'],
+        ['.', 'O', '.'],
+        ['X', 'O', 'X']
+    ];
+    expect(ttt.victory(0, 1, 'O')).toBe(true);
+
+    ttt.board = [
+        ['O', 'X', '.'],
+        ['.', 'O', '.'],
+        ['X', '.', 'O']
+    ];
+    expect(ttt.victory(2, 2, 'O')).toBe(true);
+
+    ttt.board = [
+        ['O', 'O', 'X'],
+        ['X', 'X', '.'],
+        ['X', '.', 'O']
+    ];
+    expect(ttt.victory(1, 1, 'X')).toBe(true);
+
+    ttt.board = [
+        ['X', 'O', '.'],
+        ['O', '.', '.'],
+        ['X', '.', 'O']
+    ];
+    expect(ttt.victory(0, 0, 'X')).toBe(false);
+
+    ttt.board = [
+        ['X', 'O', '.'],
+        ['X', '.', '.'],
+        ['O', 'O', 'O']
+    ];
+    expect(ttt.victory(2, 1, 'O')).toBe(true);
+
+    ttt.board = [
+        ['O', 'O', '.'],
+        ['X', '.', '.'],
+        ['X', '.', 'O']
+    ];
+    expect(ttt.victory(1, 0, 'O')).toBe(false);
 
 });
