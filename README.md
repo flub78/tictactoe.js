@@ -14,3 +14,17 @@ a game engine which can be invoked from a CLI or HTML GUI.
 		npm i --save-dev jest-canvas-mock
 		npm i --save-dev canvas
 		npm i prompt-sync
+
+## Execution
+
+run the cli version
+
+	node tictactoe-cli.js
+
+run the unit tests
+
+	npm t
+
+display the html page
+
+	double click on tictactoe.html

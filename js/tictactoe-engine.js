@@ -1,8 +1,8 @@
 /* A tictactoe object with no user interface */
 
 // cell content coding
-const empty  = '.';
-const cross  = 'X';
+const empty = '.';
+const cross = 'X';
 const circle = 'O';
 
 /**
@@ -43,26 +43,43 @@ class TicTacToeEngine {
   }
 
   current_board() {
-      return this.board;
+    return this.board;
   }
 
+  /**
+   * Play the move for the current player
+   * @param {*} row 
+   * @param {*} col 
+   * @returns 
+   */
   play(row, col) {
-      this.board [row][col] = this.turn;
-      this.turn = (this.turn == circle) ? cross : circle;
-      this.move++;
+    /*
+     * The beauty of javascript, with an untyped, unsafe language the programmer has to take risks or work more ...
+     */
+    if (row < 0 || row > 2 || col < 0 || col > 2) throw ("invalid coordinate " + row + ', ' + col);
+    if (!Number.isInteger(row) || !Number.isInteger(row)) throw ("coordinates should be integer " + row + ', ' + col);
+
+    if (this.board[row][col] != empty) return;   // just ignore 
+
+    this.board[row][col] = this.turn;
+    this.turn = (this.turn == circle) ? cross : circle;
+    this.move++;
   }
 }
 
+/**
+ * @returns an instance of TicTacToe engine
+ */
 function test_instance() {
-    var msg = 'Generating a test instance';  
-    console.log(msg);
-    var instance = new TicTacToeEngine("game_board");
-    return instance;
-  }
-  
-  // Hust a workaround so the browaser does not complain about node.js export
-  if(typeof exports == 'undefined'){
-    var exports = this['module'] = {};
-  }
-  module.exports = {test_instance}
-  
+  var msg = 'Generating a test instance';
+  console.log(msg);
+  var instance = new TicTacToeEngine("game_board");
+  return instance;
+}
+
+// Just a workaround so the browaser does not complain about node.js export
+if (typeof exports == 'undefined') {
+  var exports = this['module'] = {};
+}
+
+module.exports = { test_instance }

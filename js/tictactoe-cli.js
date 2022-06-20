@@ -15,19 +15,19 @@ function display_help() {
     help_msg = `TicTacToe game.
 
 commands:
-    quit or q:  exit the program
-    help or h:  display this message
-    new:        start a new game
-    board:      display the board
-
-    row col:    play a move, eg: A 0 or B 1
+    quit or q:      exit the program
+    help or h:      display this message
+    new or n:       start a new game
+    board or b:     display the board
+    computer or c:  computer move
+    row col:        play a move, eg: A 0 or B 1
     `;
 
     console.log(help_msg);
 }
 
 /**
- *
+ * Display the board game
  */
 function display_board() {
     var row_id = 'A';
@@ -44,6 +44,7 @@ function display_board() {
 }
 
 display_board();
+// command interpretor loop
 while (true) {
     const input = prompt('>: ');
 
@@ -56,11 +57,12 @@ while (true) {
         continue;
     }
 
-    if (input == 'new') {
+    if ((input == 'new') || (input == 'n')) {
+        ttt.new_game();
         continue;
     }   
 
-    if (input == 'board') {
+    if ((input == 'board') || (input == 'b')) {
         display_board();
         continue;
     }   
@@ -68,7 +70,6 @@ while (true) {
     var cmds = input.split(' ');
     var row = cmds[0];
     var col = cmds[1];
-    console.log(col);
     if ((['A', 'B', 'C'].includes(row)) && (['0', '1', '2'].includes(col))) {
         console.log('playing ', row, col); 
  
