@@ -1,0 +1,29 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "description": "A practice project for javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flub78/tictactoe.js.git"
+  },
+  "keywords": [
+    "Tic-Tac-Toe",
+    "javascript",
+    "jest",
+    "html",
+    "CLI"
+  ],
+  "author": "Flub78",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flub78/tictactoe.js/issues"
+  },
+  "homepage": "https://github.com/flub78/tictactoe.js#readme",
+  "devDependencies": {
+    "jest": "^28.1.1"
+  }
+}
