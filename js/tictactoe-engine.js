@@ -56,11 +56,12 @@ class TicTacToeEngine {
     /*
      * The beauty of javascript, with an untyped, unsafe language the programmer has to take risks or work more ...
      */
+    
     if (row < 0 || row > 2 || col < 0 || col > 2) throw ("invalid coordinate " + row + ', ' + col);
     if (!Number.isInteger(row) || !Number.isInteger(row)) throw ("coordinates should be integer " + row + ', ' + col);
 
     if (this.board[row][col] != empty) return "cell not empty";   // just ignore
-    if (this.winner_player != empty) return "game over"; 
+    if (this.winner_player != empty) return "game over";
 
     this.board[row][col] = this.turn;
     if (this.victory(row, col, this.turn)) {
@@ -76,7 +77,7 @@ class TicTacToeEngine {
    * 
    * @returns Check if the current player has won
    */
-  victory (row, col, turn) {
+  victory(row, col, turn) {
 
     var row_sum = 0;
     var col_sum = 0;
@@ -106,7 +107,85 @@ class TicTacToeEngine {
 
     return false;
   }
-}
+
+  // ============================================================================
+  // Computer moves
+  // ============================================================================
+
+  /**
+     * Evaluate the value of a move for a color
+     * 
+     * from -1 (forbiden move to x)
+     * 
+     * There are 3 rows, 3 cols and two diagonals
+     * a cell belong to 2, 3 or 4 lines depending if it is on 0, 1 or 2 diagonals
+     * 
+     * @param row
+     * @param col
+     * @param {*} color 
+     * @returns 
+     */
+  score_of(row, col, color) {
+
+    // Is there a winner move for the oponent to block
+    // A move to block is two cells of the oponent color and an empty spot
+
+    // Look for a move that belong to the maximal number of winnable lines
+
+    // There are 3 rows, 3 cols and two diagonals
+    // a cell belong to 2, 3 or 4 lines depending if it is on 0, 1 or 2 diagonals
+
+    // At the beginning of the game a player should play the cell belonging to the highest number of line
+
+
+    if (this.board[row][col] != empty) {
+      return -1;
+    }
+
+    // Is it a win move ?
+
+    // position points
+    var position_points = 0;
+    if ((row == 1) && (col == 1)) {
+      position_points = 4;
+    } else if ((row == col) || (row == (2 - col))) {
+      position_points = 3;
+    } else {
+      position_points = 2;
+    }
+    var total = position_points;
+    console.log("evaluation (" + row + ', ' + col + ') = ' + total)
+    return total;
+  }
+
+  /**
+   * Look for the best move
+   * @param {*} color 
+   */
+  best_move(color) {
+    var best_score = -1;
+    var best_cell = undefined;
+    for (var row = 0; row < 3; row++) {
+      for (var col = 0; col < 3; col++) {
+        var score = this.score_of(row, col, this.turn);
+        if (score > best_score) {
+          best_score = score;
+          best_cell = { row: row, col: col };
+        }
+      }
+    }
+    return best_cell;
+  }
+
+  /**
+   * Computer move
+   */
+  computer_move() {
+    var move = this.best_move(this.turn);
+    if (move) this.play(move.row, move.col);
+  }
+
+} // end TicTacToeEngine
 
 /**
  * @returns an instance of TicTacToe engine

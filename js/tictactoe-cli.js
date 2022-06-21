@@ -59,10 +59,17 @@ while (true) {
 
     if ((input == 'new') || (input == 'n')) {
         ttt.new_game();
+        display_board();
         continue;
     }   
 
     if ((input == 'board') || (input == 'b')) {
+        display_board();
+        continue;
+    }   
+
+    if ((input == 'computer') || (input == 'c')) {
+        ttt.computer_move();
         display_board();
         continue;
     }   
