@@ -1,4 +1,4 @@
-/* A tictactoe object with no user interface */
+/* A tictactoe object */
 
 // cell content coding
 const empty = '.';
@@ -134,6 +134,13 @@ class TicTacToeEngine {
   // Computer moves
   // ============================================================================
 
+  /**
+   * 
+   * @param {*} row 
+   * @param {*} col 
+   * @param {*} color 
+   * @returns 
+   */
   win_move(row, col, color) {
     var row_sum = 0;
     var col_sum = 0;
@@ -178,17 +185,7 @@ class TicTacToeEngine {
      */
   score_of(row, col, color) {
 
-    // Is there a winner move for the oponent to block
-    // A move to block is two cells of the oponent color and an empty spot
-
-    // Look for a move that belong to the maximal number of winnable lines
-
-    // There are 3 rows, 3 cols and two diagonals
-    // a cell belong to 2, 3 or 4 lines depending if it is on 0, 1 or 2 diagonals
-
-    // At the beginning of the game a player should play the cell belonging to the highest number of line
-
-
+    // Is the move valid ?
     if (this.board[row][col] != empty) {
       return -1;
     }
@@ -197,11 +194,11 @@ class TicTacToeEngine {
     var win_points = 0;
     if (this.win_move(row, col, color)) win_points = 100; 
 
-    // blocking move
+    // Is it a move to block to avoid the oponent to win
     var oponent = (color == cross) ? circle : cross;
     if (this.win_move(row, col, oponent)) win_points = 50; 
 
-    // position points
+    // board position points
     var position_points = 0;
     if ((row == 1) && (col == 1)) {
       position_points = 4;
