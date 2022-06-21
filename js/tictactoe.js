@@ -23,6 +23,8 @@ const right_x = padding + 2 * cell_width;
 const top_y = padding + cell_height;
 const bottom_y = padding + 2 * cell_height;
 
+var computer = '.';
+
 /**
  * Draw a line between two points
  * @param x1 origin
@@ -159,6 +161,8 @@ function game_clicked(e) {
   if (result.msg) {
     set_status(result.msg);
   }
+
+  if (computer != '.') computer_move();
 }
 
 /**
@@ -168,6 +172,7 @@ function new_game() {
   ttt.new_game();
   draw_board();
   set_next(ttt.turn);
+  computer = '.';
 }
 
 /**
@@ -176,6 +181,7 @@ function new_game() {
 function computer_move() {
   var turn = ttt.turn;
   var move = ttt.computer_move();
+  computer = ttt.turn;
   console.log("computer move = ", move);
   if (move) {
     draw_cell(move.row, move.col, turn);
