@@ -131,5 +131,60 @@ test('winner', () => {
         ['X', '.', 'O']
     ];
     expect(ttt.victory(1, 0, 'O')).toBe(false);
+});
+
+test('score_of', () => {
+    var ttt = test_instance();
+    expect(ttt).toBeDefined();
+
+    ttt.new_game();
+
+    ttt.board = [
+        [empty, empty, empty],
+        [empty, empty, empty],
+        [empty, empty, empty]
+    ];
+    expect(ttt.score_of(1, 1, 'X')).toBe(4);
+    expect(ttt.score_of(0, 0, 'X')).toBe(3);
+    expect(ttt.score_of(0, 1, 'O')).toBe(2);
+
+    ttt.board = [
+        ['X', 'O', '.'],
+        ['X', '.', '.'],
+        ['.', '.', 'O']
+    ];
+    expect(ttt.score_of(2, 0, 'X')).toBe(103);
+    expect(ttt.score_of(0, 0, 'X')).toBe(-1);
+    expect(ttt.score_of(0, 0, 'O')).toBe(-1);
+
+    ttt.board = [
+        ['X', 'O', '.'],
+        ['O', '.', '.'],
+        ['.', '.', 'X']
+    ];
+    expect(ttt.score_of(1, 1, 'X')).toBe(104);
+    expect(ttt.score_of(0, 0, 'X')).toBe(-1);
+
+    ttt.board = [
+        ['O', 'O', '.'],
+        ['X', '.', '.'],
+        ['.', '.', 'X']
+    ];
+    expect(ttt.score_of(0, 2, 'O')).toBe(103);
+    expect(ttt.score_of(0, 0, 'X')).toBe(-1);
+
+    ttt.board = [
+        ['O', 'X', '.'],
+        ['X', 'O', '.'],
+        ['O', '.', 'X']
+    ];
+    expect(ttt.score_of(0, 2, 'O')).toBe(103);
+
+    ttt.board = [
+        ['O', 'X', 'O'],
+        ['X', '.', '.'],
+        ['O', '.', 'X']
+    ];
+    expect(ttt.score_of(1, 1, 'O')).toBe(104);
 
 });

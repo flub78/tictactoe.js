@@ -4,7 +4,8 @@
   "description": "A practice project for javascript",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "cov": "jest --coverage"
   },
   "repository": {
     "type": "git",

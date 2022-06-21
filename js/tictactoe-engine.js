@@ -1,11 +1,5 @@
 /* A tictactoe object with no user interface */
 
-/*
-Refactoring to do:  the object method whould return
-everything required to update the GUI.
-
-*/
-
 // cell content coding
 const empty = '.';
 const cross = 'X';
@@ -24,8 +18,6 @@ class TicTacToeEngine {
    * @param iframe_id HTML id of the iframe
    */
   constructor() {
-    console.log("building TicTacToe engine ");
-
     this.new_game();
   }
 
@@ -34,8 +26,6 @@ class TicTacToeEngine {
    * @returns 
    */
   new_game() {
-    console.log('new game');
-
     this.turn = cross;
     this.move = 0;
 
@@ -144,6 +134,35 @@ class TicTacToeEngine {
   // Computer moves
   // ============================================================================
 
+  win_move(row, col, color) {
+    var row_sum = 0;
+    var col_sum = 0;
+    var diag1_sum = 0;
+    var diag2_sum = 0;
+    var winner = false;
+
+    for (var i = 0; i < 3; i++) {
+
+      if (this.board[row][(col + i) % 3] == color) row_sum++;
+      if (this.board[(row + i) % 3][col] == color) col_sum++;
+
+      if (row == col) {
+        if (this.board[(row + i) % 3][(col + i) % 3] == color) diag1_sum++;
+      }
+
+      if (row == (2 - col)) {
+        var r = (row + i) % 3;
+        var c = 2 - r;
+        if (this.board[r][c] == color) diag2_sum++;
+      }
+    }
+
+    if ((row_sum == 2) || (col_sum == 2) || (diag1_sum == 2) || (diag2_sum == 2)) {
+      winner = true;
+    }
+    return winner;
+  }
+
   /**
      * Evaluate the value of a move for a color
      * 
@@ -175,6 +194,12 @@ class TicTacToeEngine {
     }
 
     // Is it a win move ?
+    var win_points = 0;
+    if (this.win_move(row, col, color)) win_points = 100; 
+
+    // blocking move
+    var oponent = (color == cross) ? circle : cross;
+    if (this.win_move(row, col, oponent)) win_points = 50; 
 
     // position points
     var position_points = 0;
@@ -185,8 +210,7 @@ class TicTacToeEngine {
     } else {
       position_points = 2;
     }
-    var total = position_points;
-    console.log("evaluation (" + row + ', ' + col + ') = ' + total)
+    var total = position_points + win_points;
     return total;
   }
 
@@ -237,8 +261,6 @@ class TicTacToeEngine {
  * @returns an instance of TicTacToe engine
  */
 function test_instance() {
-  var msg = 'Generating a test instance';
-  console.log(msg);
   var instance = new TicTacToeEngine("game_board");
   return instance;
 }

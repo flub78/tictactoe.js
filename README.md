@@ -22,8 +22,10 @@ run the cli version
 	node tictactoe-cli.js
 
 run the unit tests
-
 	npm t
+
+run the tests and measure coverage
+	npm run cov
 
 display the html page
 
