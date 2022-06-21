@@ -183,6 +183,7 @@ class TicTacToeEngine {
   computer_move() {
     var move = this.best_move(this.turn);
     if (move) this.play(move.row, move.col);
+    return move;
   }
 
 } // end TicTacToeEngine
