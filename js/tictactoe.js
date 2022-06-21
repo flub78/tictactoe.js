@@ -53,6 +53,7 @@ function draw_board() {
   line(left_x, padding, left_x, frame_height - padding);
   line(right_x, padding, right_x, frame_height - padding);
   ctx.stroke();
+  set_status("Next player : ");
 }
 
 /*
@@ -98,6 +99,15 @@ function draw_cell(row, col, color) {
     }
   }
 
+  /**
+   * Set the message status
+   * @param {} msg 
+   */
+  function set_status(msg) {
+    next_player = document.getElementById('next_player');
+    next_player.innerText = msg;
+  }
+
 // =================================================================================================
 
 window.onload = function () {
@@ -138,12 +148,17 @@ function game_clicked(e) {
     row = 2;
   }
   console.log('playing', row, col)
-  var turn = ttt.turn;
-  var play_result = ttt.play(row, col);
-  console.log(play_result);
 
-  draw_cell(row, col, turn);
-  set_next(ttt.turn);
+  var result = ttt.play(row, col);
+  console.log(result);
+
+  if (result.accepted) {
+    draw_cell(result.row, result.col, result.current);
+    set_next(result.next); 
+  }
+  if (result.msg) {
+    set_status(result.msg);
+  }
 }
 
 /**
@@ -162,7 +177,10 @@ function computer_move() {
   var turn = ttt.turn;
   var move = ttt.computer_move();
   console.log("computer move = ", move);
-  if (move) draw_cell(move.row, move.col, turn);
+  if (move) {
+    draw_cell(move.row, move.col, turn);
+    set_next(ttt.turn);  
+  }
 }
 
 /**
@@ -170,6 +188,4 @@ function computer_move() {
  */
 function test() {
   console.log("testing ...");
-  console.log('turn = ', ttt.turn);
-  console.log('winner move ', ttt.winner_move(ttt.turn));
 }

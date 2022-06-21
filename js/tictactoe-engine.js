@@ -1,5 +1,11 @@
 /* A tictactoe object with no user interface */
 
+/*
+Refactoring to do:  the object method whould return
+everything required to update the GUI.
+
+*/
+
 // cell content coding
 const empty = '.';
 const cross = 'X';
@@ -60,17 +66,43 @@ class TicTacToeEngine {
     if (row < 0 || row > 2 || col < 0 || col > 2) throw ("invalid coordinate " + row + ', ' + col);
     if (!Number.isInteger(row) || !Number.isInteger(row)) throw ("coordinates should be integer " + row + ', ' + col);
 
-    if (this.board[row][col] != empty) return "cell not empty";   // just ignore
-    if (this.winner_player != empty) return "game over";
+    var res = {
+      game_over: false,
+      accepted: false,
+      row: row,
+      col: col,
+      current: this.turn,
+      winner: empty,
+      msg: ''
+    };
+
+    if (this.winner_player != empty) {
+      res['game_over'] = true;
+      res['accepted'] = false;
+      return res;
+    }
+    if (this.board[row][col] != empty) {
+      res['msg'] = "cell not empty";   // just ignore
+      res['accepted'] = false;
+      return res;
+    }
 
     this.board[row][col] = this.turn;
+    res['accepted'] = true;
+    res['row'] = row;
+    res['col'] = col;
+
     if (this.victory(row, col, this.turn)) {
       this.winner_player = this.turn;
-      return "game over, the winner is " + this.turn;
+      res['winner'] = this.turn;
+      res['game_over'] = true;
+      res['msg'] = "game over, the winner is " + this.turn;
     }
     this.turn = (this.turn == circle) ? cross : circle;
+    res['next'] = this.turn;
     this.move++;
-    return "";
+
+    return res;
   }
 
   /**
@@ -181,9 +213,22 @@ class TicTacToeEngine {
    * Computer move
    */
   computer_move() {
+    var res = {
+      game_over: false,
+      accepted: false,
+      current: this.turn,
+      winner: empty,
+      msg: ''
+    };
+
     var move = this.best_move(this.turn);
-    if (move) this.play(move.row, move.col);
-    return move;
+    if (move) {
+      res = this.play(move.row, move.col);
+    } else {
+      res['msg'] = "No valid move";
+    }
+
+    return res;
   }
 
 } // end TicTacToeEngine
