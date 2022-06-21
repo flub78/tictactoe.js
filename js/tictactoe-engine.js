@@ -59,8 +59,8 @@ class TicTacToeEngine {
     if (row < 0 || row > 2 || col < 0 || col > 2) throw ("invalid coordinate " + row + ', ' + col);
     if (!Number.isInteger(row) || !Number.isInteger(row)) throw ("coordinates should be integer " + row + ', ' + col);
 
-    if (this.board[row][col] != empty) return "";   // just ignore
-    if (this.winner != empty) return; 
+    if (this.board[row][col] != empty) return "cell not empty";   // just ignore
+    if (this.winner_player != empty) return "game over"; 
 
     this.board[row][col] = this.turn;
     if (this.victory(row, col, this.turn)) {

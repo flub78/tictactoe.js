@@ -11,25 +11,24 @@ test('true == true', () => {
     expect(true).toBe(true);
 });
 
-test('test instance', () => {
+test('test instance', function () {
 
+        // The game exists
+        expect(test_instance).toBeDefined();
+        var ti = test_instance();
+        expect(ti).toBeDefined();
 
-    // The game exists
-    expect(test_instance).toBeDefined();
-    var ti = test_instance();
-    expect(ti).toBeDefined();
+        // and is empty
+        expect(ti.board).toStrictEqual(empty_board);
 
-    // and is empty
-    expect(ti.board).toStrictEqual(empty_board);
+        // No more after a move
+        ti.play(1, 1);
+        expect(ti.board).not.toStrictEqual(empty_board);
 
-    // No more after a move
-    ti.play(1, 1);
-    expect(ti.board).not.toStrictEqual(empty_board);
-
-    // but back after reset
-    expect(ti.new_game()).toBe(42);
-    expect(ti.board).toStrictEqual(empty_board);
-});
+        // but back after reset
+        expect(ti.new_game()).toBe(42);
+        expect(ti.board).toStrictEqual(empty_board);
+    });
 
 test('test play', () => {
     var ttt = test_instance();
